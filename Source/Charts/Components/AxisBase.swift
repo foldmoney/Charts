@@ -171,6 +171,8 @@ open class AxisBase: ComponentBase
         }
     }
     
+    open var labelFormatter: AxisLabelFormatter?
+    
     @objc open var isDrawGridLinesEnabled: Bool { return drawGridLinesEnabled }
     
     @objc open var isDrawAxisLineEnabled: Bool { return drawAxisLineEnabled }
