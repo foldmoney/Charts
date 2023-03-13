@@ -9,5 +9,5 @@ import Foundation
 
 public protocol AxisLabelFormatter: AnyObject {
     /// Called to format the font of the label being drawn on the axis
-    func attributesForAxis() -> [NSAttributedString.Key : Any]
+    func attributesForAxis(value: Double) -> [NSAttributedString.Key : Any]
 }
