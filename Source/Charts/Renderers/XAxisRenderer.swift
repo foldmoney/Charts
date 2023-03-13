@@ -252,9 +252,6 @@ open class XAxisRenderer: NSObject, AxisRenderer
         let paraStyle = ParagraphStyle.default.mutableCopy() as! MutableParagraphStyle
         paraStyle.alignment = .center
         
-        let labelAttrs: [NSAttributedString.Key : Any] = [.font: axis.labelFont,
-                                                         .foregroundColor: axis.labelTextColor,
-                                                         .paragraphStyle: paraStyle]
 
         let labelRotationAngleRadians = axis.labelRotationAngle.DEG2RAD
         let isCenteringEnabled = axis.isCenterAxisLabelsEnabled
@@ -272,6 +269,16 @@ open class XAxisRenderer: NSObject, AxisRenderer
         
         for i in entries.indices
         {
+            var labelAttrs: [NSAttributedString.Key : Any] = [:]
+            if let attributes = axis.labelFormatter?.attributesForAxis(value: axis.entries[i]) {
+                labelAttrs = attributes
+                labelAttrs[.paragraphStyle] = paraStyle
+            }
+            else {
+                labelAttrs = [.font: axis.labelFont,
+                                                                 .foregroundColor: axis.labelTextColor,
+                                                                 .paragraphStyle: paraStyle]
+            }
             let px = isCenteringEnabled ? CGFloat(axis.centeredEntries[i]) : CGFloat(entries[i])
             position = CGPoint(x: px, y: 0)
                 .applying(valueToPixelMatrix)
